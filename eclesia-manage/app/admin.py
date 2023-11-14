@@ -1,7 +1,22 @@
 from django.contrib import admin
-from app.models import *
+from .models import *
+from .forms import MembroForm, FuncaoForm, PequenoGrupoForm
 
-admin.site.register(Membro)
+class FuncaoInline(admin.TabularInline):
+    model = Funcao.membroFuncao.through
+    form = FuncaoForm
+    extra = 1
+
+class PequenoGrupoInline(admin.TabularInline):
+    model = PequenoGrupo.membrosPequenoGrupo.through
+    form = PequenoGrupoForm
+    extra = 1
+
+class MembroAdmin(admin.ModelAdmin):
+    inlines = [FuncaoInline, PequenoGrupoInline]
+    form = MembroForm
+
+admin.site.register(Membro, MembroAdmin)
 admin.site.register(Visita)
 admin.site.register(Ministerio)
 admin.site.register(TipoInstrumento)
