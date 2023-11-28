@@ -1,7 +1,6 @@
 from django.db import models
 
 class Membro(models.Model):
-    idMembro = models.IntegerField()
     nomeMembro = models.CharField(max_length=150)
     enderecoMembro = models.CharField(max_length=200)
     telefoneMembro = models.CharField(max_length=11)
@@ -12,7 +11,6 @@ class Membro(models.Model):
     
 
 class Visita(models.Model):
-    idVisita = models.IntegerField()
     localVisita = models.CharField(max_length=200)
     dataVisita = models.DateField()
     anfitriaoVisita = models.ForeignKey(Membro, on_delete=models.CASCADE, related_name='visitas_anfitriao')  # Adicionado related_name
@@ -22,7 +20,6 @@ class Visita(models.Model):
     
 
 class Ministerio(models.Model):
-    idMinisterio = models.IntegerField()
     nomeMinisterio = models.CharField(max_length=50)
     descricaoMinisterio = models.CharField(max_length=300)
     liderMinisterio = models.ForeignKey(Membro, on_delete=models.CASCADE, related_name='lider_ministerio')  # Adicionado related_name
@@ -33,7 +30,6 @@ class Ministerio(models.Model):
 
 
 class TipoInstrumento(models.Model):
-    idTipoInstrumento = models.IntegerField()
     nomeTipoInstrumento = models.CharField(max_length=50)
 
     def __str__(self):
@@ -41,7 +37,6 @@ class TipoInstrumento(models.Model):
 
 
 class Instrumento(models.Model):
-    idInstrumento = models.IntegerField()
     nomeInstrumento = models.CharField(max_length=50)
     instrumentistaInstrumento = models.ManyToManyField(Membro, related_name='instrumentos')  # Adicionado related_name
     tipoInstrumento = models.ForeignKey(TipoInstrumento, on_delete=models.CASCADE)
@@ -51,7 +46,6 @@ class Instrumento(models.Model):
     
 
 class Funcao(models.Model):
-    idFuncao = models.IntegerField()
     nomeFuncao = models.CharField(max_length=50)
     descricaoFuncao = models.CharField(max_length=300)
     membroFuncao = models.ManyToManyField(Membro, related_name='funcoes')  # Adicionado related_name
@@ -61,7 +55,6 @@ class Funcao(models.Model):
     
 
 class PequenoGrupo(models.Model):
-    idPequenoGrupo = models.IntegerField()  # Corrigido o nome do campo
     membrosPequenoGrupo = models.ManyToManyField(Membro, related_name='pequenos_grupos')  # Adicionado related_name
     nomePequenoGrupo = models.CharField(max_length=100)
     localPequenoGrupo = models.CharField(max_length=200)
@@ -72,7 +65,6 @@ class PequenoGrupo(models.Model):
     
 
 class Evento(models.Model):
-    idEvento = models.IntegerField()
     nomeEvento = models.CharField(max_length=100)
     dataEvento = models.DateField()
     localEvento = models.CharField(max_length=200)
